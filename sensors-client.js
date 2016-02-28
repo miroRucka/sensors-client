@@ -22,6 +22,10 @@ app.get("/api/*", function (req, res) {
     apiProxy.web(req, res, {target: "http://localhost:8082/"});
 });
 
+app.post("/api/*", function (req, res) {
+    apiProxy.web(req, res, {target: "http://localhost:8082/"});
+});
+
 (function _beforeStart() {
     console.info("performing - after start handler");
 })();
