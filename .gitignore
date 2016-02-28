@@ -1,0 +1,11 @@
+app.js
+app.js.map
+.DS_Store
+*.iml
+*.log
+.idea/*
+.tmp/*
+dist/*
+node_modules/*
+bower_components/*
+/.project

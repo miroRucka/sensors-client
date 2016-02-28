@@ -1,0 +1,32 @@
+    <div class="ui link cards">
+        <div class="card">
+            <div class="content">
+                <a class="ui teal tag label">Temperature</a>
+                <div class="ui huge header">{{sensorData?.temperature}} °C</div>
+            </div>
+            <div class="extra content">
+      <span class="right floated">
+        {{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
+      </span>
+      <span>
+        <i class="wait icon"></i>
+        last update
+      </span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <a class="ui olive tag label">Humidity</a>
+                <div class="ui huge header">{{sensorData?.humidity}}%</div>
+            </div>
+            <div class="extra content">
+      <span class="right floated">
+       {{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
+      </span>
+      <span>
+        <i class="wait icon"></i>
+        last update
+      </span>
+            </div>
+        </div>
+    </div>
