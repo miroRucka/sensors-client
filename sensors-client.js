@@ -19,11 +19,11 @@ process.on('uncaughtException', function (err) {
 app.use(express.static(__dirname));
 
 app.get("/api/*", function (req, res) {
-    apiProxy.web(req, res, {target: "http://localhost:8082/"});
+    apiProxy.web(req, res, {target: "http://horske.info:8082/"});
 });
 
 app.post("/api/*", function (req, res) {
-    apiProxy.web(req, res, {target: "http://localhost:8082/"});
+    apiProxy.web(req, res, {target: "http://horske.info:8082/"});
 });
 
 (function _beforeStart() {

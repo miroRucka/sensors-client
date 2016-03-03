@@ -12,10 +12,17 @@ export class UnicodeToDatePipe {
     }
 }
 
+@Pipe({name: 'digits'})
+export class Digits {
+    transform(value:number, args:string[]):any {
+        return value != null ? value.toFixed(2) : value;
+    }
+}
+
 @Component({
     selector: 'sensors-app',
     templateUrl: 'template/app.html',
-    pipes: [UnicodeToDatePipe]
+    pipes: [UnicodeToDatePipe, Digits]
 })
 class SensorsApp implements OnDestroy {
 

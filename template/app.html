@@ -1,32 +1,87 @@
-    <div class="ui link cards">
-        <div class="card">
-            <div class="content">
-                <a class="ui teal tag label">Temperature</a>
-                <div class="ui huge header">{{sensorData?.temperature}} °C</div>
-            </div>
-            <div class="extra content">
-      <span class="right floated">
-        {{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
-      </span>
-      <span>
-        <i class="wait icon"></i>
-        last update
-      </span>
-            </div>
+<!--<div class="ui link cards">
+    <div class="card">
+        <div class="content">
+            <a class="ui teal tag label">Temperature</a>
+            <div class="ui huge header">{{sensorData?.temperature}} °C</div>
         </div>
-        <div class="card">
-            <div class="content">
-                <a class="ui olive tag label">Humidity</a>
-                <div class="ui huge header">{{sensorData?.humidity}}%</div>
-            </div>
-            <div class="extra content">
-      <span class="right floated">
-       {{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
-      </span>
-      <span>
-        <i class="wait icon"></i>
-        last update
-      </span>
+        <div class="extra content">
+<span class="right floated">
+{{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
+</span>
+<span>
+<i class="wait icon"></i>
+last update
+</span>
+        </div>
+    </div>
+    <div class="card">
+        <div class="content">
+            <a class="ui olive tag label">Humidity</a>
+            <div class="ui huge header">{{sensorData?.humidity}}%</div>
+        </div>
+        <div class="extra content">
+<span class="right floated">
+{{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
+</span>
+<span>
+<i class="wait icon"></i>
+last update
+</span>
+        </div>
+    </div>
+</div>-->
+<h2 class="ui center aligned icon header">
+    <i class="circular sun icon"></i>
+    meteostanica
+</h2>
+
+<div class="ui two column stackable grid container">
+    <div class="left aligned column">
+        <div class="ui segment" *ngFor="#item of sensorData?.temperature; #i = index">
+            <div class="ui top right attached teal label">Temperature</div>
+            <div class="ui inverted circular segment">
+                <h3 class="ui inverted header">
+                    {{item?.t1}}{{item?.t2}}{{item?.t3}}
+                    <div class="sub header">Dnu</div>
+                </h3>
             </div>
         </div>
     </div>
+    <div class="left aligned column">
+        <div class="ui segment">
+            <div class="ui top right attached label">Humidity</div>
+            <div class="ui inverted circular segment">
+                <h1 class="ui inverted header">
+                    {{sensorData?.humidity|digits}}
+                </h1>
+            </div>
+        </div>
+        <div class="ui segment">
+            <div class="ui top right attached label">Pressure</div>
+            <div class="ui inverted circular segment">
+                <h1 class="ui inverted header">
+                    {{sensorData?.pressure|digits}}
+                </h1>
+            </div>
+        </div>
+        <div class="ui segment">
+            <div class="ui top right attached label">Light</div>
+            <div class="ui inverted circular segment">
+                <h1 class="ui inverted header">
+                    {{sensorData?.light|digits}}
+                </h1>
+            </div>
+        </div>
+        <div class="card cards">
+
+            <div class="extra content">
+          <span class="right floated">
+           {{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}
+          </span>
+          <span>
+
+          </span>
+            </div>
+        </div>
+    </div>
+</div>
