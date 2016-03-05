@@ -2,12 +2,45 @@ body {
     background-color: #DADADA;
     padding: 50px;
 }
+
 body > .grid {
     height: 100%;
 }
+
 .image {
     margin-top: -100px;
 }
+
 .column {
     max-width: 450px;
 }
+
+.sensors .space {
+    height: 10px;
+}
+
+.sensors .left-placed {
+    float: left;
+}
+
+.sensors .value {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.humidity {
+    font-size: 66px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.pressure {
+    font-size: 45px;
+}
+
+.graph {
+    height: 50px;
+    border: 1px solid rebeccapurple;
+}
+
+
