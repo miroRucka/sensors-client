@@ -1,40 +1,39 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html data-ng-app="sensors">
 <head>
-    <title>Sensors</title>
-    <link rel="icon" type="image/png" href="resources/images/favicon-32x32.png" sizes="32x32"/>
-    <link rel="icon" href="resources/images/favicon.ico"/>
-    <!-- Libraries -->
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="resources/vendor/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="utf-8" />
+  <title translate="app.name">Meteostanica</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <!-- build:css css/style.package.css -->
+  <link rel="stylesheet" type="text/css" href="bower_components/semantic/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <!-- endbuild -->
 </head>
-<body>
-
-<div class="ui main text container sensors">
-    <sensors-app></sensors-app>
-</div>
-
-
-<script src="node_modules/es6-shim/es6-shim.js"></script>
-<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-<script src="https://npmcdn.com/angular2@2.0.0-beta.7/es6/dev/src/testing/shims_for_IE.js"></script>
-<script src="node_modules/systemjs/dist/system.src.js"></script>
-<script src="node_modules/rxjs/bundles/Rx.js"></script>
-<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-<script src="node_modules/angular2/bundles/http.dev.js"></script>
-<!-- Configure System.js, our module loader -->
-<script>
-    System.config({
-        packages: {
-            app: {
-                format: 'register',
-                defaultExtension: 'js'
-            }
-        }
-    });
-    System.import('app/app.js').then(null, console.error.bind(console));
-</script>
+<body >
+  <div ui-view></div>
+  <!-- build:js js/scripts.package.js -->
+  <script defer="defer" src="bower_components/jquery/dist/jquery.js"></script>
+  <script defer="defer" src="bower_components/angular/angular.js"></script>
+  <script defer="defer" src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+  <script defer="defer" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script defer="defer" src="bower_components/angular-ui-utils/ui-utils.js"></script>
+  <script defer="defer" src="bower_components/angular-translate/angular-translate.js"></script>
+  <script defer="defer" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script defer="defer" src="bower_components/lodash/lodash.js"></script>
+  <script defer="defer" src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+  <script defer="defer" src="js/vendor/highcharts.js"></script>
+  <script defer="defer" src="js/vendor/angular-locale_sk.js"></script>
+  <script defer="defer" src="js/app/app.js"></script>
+  <script defer="defer" src="js/app/config.js"></script>
+  <script defer="defer" src="js/app/config.router.js"></script>
+  <script defer="defer" src="js/filters/filter.js"></script>
+  <script defer="defer" src="js/controllers/homeController.js"></script>
+  <script defer="defer" src="js/services/data.service.js"></script>
+  <script defer="defer" src="js/services/utils.js"></script>
+  <script defer="defer" src="js/services/config/chart.config.js"></script>
+  <script defer="defer" src="js/templates.js"></script>
+  <!-- endbuild -->
 </body>
 </html>
