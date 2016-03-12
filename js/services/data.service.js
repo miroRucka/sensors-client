@@ -1,18 +1,31 @@
 /**
  * this is module for rest api
  */
-angular.module('services').service('dataService', ['$http', function ($http) {
+angular.module('services').service('dataService', function ($http, sensorsConstants) {
     var _last = function _last() {
         return $http({
             method: 'GET',
             url: 'api/sensors/last',
-            headers: {
-                'Accept-Type': 'application/json',
-                'Authorization': 'c3VzbGlrOmJ1Ym8=',
-            }
+            headers: sensorsConstants.headers
+        });
+    };
+    var _today = function _today() {
+        return $http({
+            method: 'GET',
+            url: 'api/sensors/today',
+            headers: sensorsConstants.headers
+        });
+    };
+    var _12hours = function _12hours() {
+        return $http({
+            method: 'GET',
+            url: 'api/sensors/last/12hour',
+            headers: sensorsConstants.headers
         });
     };
     return {
-        last: _last
+        last: _last,
+        last12hours: _12hours,
+        today: _today
     }
-}]);
+});

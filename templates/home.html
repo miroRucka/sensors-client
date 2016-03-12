@@ -7,7 +7,7 @@
     <div class="left aligned column">
         <div class="ui segment">
             <div class="space"></div>
-            <div class="ui blue segment right aligned" ng-repeat="item in sensorData.temperature">
+            <div class="ui blue segment right aligned" ng-repeat="item in home.sensorData.temperature">
                 <i class="home icon left-placed"></i><span class="value">{{item.value|digits}}</span> °C
             </div>
             <div class="ui secondary blue top attached label">Temperature</div>
@@ -15,23 +15,29 @@
         <div class="ui blue label">
             <i class="sun icon"></i>
             Light
-            <div class="detail">{{sensorData.light|digits}}</div>
+            <div class="detail">{{home.sensorData.light|digits}}</div>
             lx
         </div>
-        <div class="ui blue label">
+        <a class="ui blue label" ng-click="home.reload();">
             <i class="refresh icon"></i>
-            <div class="detail">{{sensorData.timestamp | date:'HH:mm:ss'}}</div>
-        </div>
+            <div class="detail">{{home.sensorData.timestamp | date:'HH:mm:ss'}}</div>
+        </a>
     </div>
     <div class="left aligned column">
-        <div class="ui segment">
-            <div class="humidity">{{sensorData.humidity|digits}} %</div>
+        <div class="ui segment no-padding">
+            <div class="humidity">{{home.sensorData.humidity|digits}} %</div>
+            <div class="graph">
+                <highchart config="home.chartHumidityConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
+            </div>
             <div class="ui secondary yellow top attached label">Humidity</div>
         </div>
-        <div class="ui segment">
-            <div class="pressure humidity"> {{sensorData.pressure|digits}} hPa</div>
-            <div class="graph"></div>
+        <div class="ui segment no-padding">
+            <div class="pressure humidity"> {{home.sensorData.pressure|digits}} hPa</div>
+            <div class="graph">
+                <highchart config="home.chartPressureConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
+            </div>
             <div class="ui secondary yellow top attached label">Pressure</div>
         </div>
     </div>
+</div>
 </div>

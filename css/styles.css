@@ -39,8 +39,11 @@ body > .grid {
 }
 
 .graph {
-    height: 50px;
-    border: 1px solid rebeccapurple;
+}
+
+.sensors .ui.segment.no-padding{
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 

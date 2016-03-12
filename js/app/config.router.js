@@ -13,6 +13,6 @@ angular.module('sensors')
         $stateProvider.state('home', {
             url: '/home',
             templateUrl: 'templates/home.html',
-            controller: 'HomeController'
+            controller: 'HomeController as home'
         });
     });

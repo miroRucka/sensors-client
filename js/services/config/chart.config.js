@@ -78,33 +78,92 @@ angular.module('services').factory('temperatureChart', function (chartConfig) {
     };
 });
 
-angular.module('services').factory('pressureChart', function (chartConfig) {
+angular.module('services').factory('pressureChart', function (chartConfig, $filter) {
     return function (data, cat) {
         return chartConfig({
             options: {
                 tooltip: {
                     formatter: function () {
-                        return 'Tlak <b>' + this.y +
-                            '</b><br/>v čase <b>' + this.x + '</b>';
+                        return "Tlak <b>" + $filter('digits')(this.y) +
+                            "</b><br/>v čase <b>" + this.x + "</b>";
                     },
                     followTouchMove: false,
                     followPointer: false
+                },
+                chart: {
+                    height: 150
                 }
             },
             series: [{
-                color: "#7266ba",
+                color: "#fbbd08",
                 type: "area",
                 id: "series-0",
-                data: data
+                fillOpacity: 0.1,
+                lineWidth: 1,
+                marker: {
+                    radius: 2
+                },
+                data: data,
             }],
             yAxis: {
                 title: {
-                    text: 'Tlak hPa'
+                    text: undefined
                 },
-                min: 900
+                min: 970
             },
             xAxis: {
-                categories: cat
+                categories: cat,
+                title: {
+                    text: undefined
+                },
+                labels: {
+                    enabled: false
+                }
+            }
+        });
+    };
+});
+
+angular.module('services').factory('humidityChart', function (chartConfig, $filter) {
+    return function (data, cat) {
+        return chartConfig({
+            options: {
+                tooltip: {
+                    formatter: function () {
+                        return "Vlhkosť <b>" + $filter('digits')(this.y) +
+                            "</b><br/>v čase <b>" + this.x + "</b>";
+                    },
+                    followTouchMove: false,
+                    followPointer: false
+                },
+                chart: {
+                    height: 150
+                }
+            },
+            series: [{
+                color: "#fbbd08",
+                type: "area",
+                id: "series-0",
+                fillOpacity: 0.1,
+                lineWidth: 1,
+                marker: {
+                    radius: 2
+                },
+                data: data,
+            }],
+            yAxis: {
+                title: {
+                    text: undefined
+                }
+            },
+            xAxis: {
+                categories: cat,
+                title: {
+                    text: undefined
+                },
+                labels: {
+                    enabled: false
+                }
             }
         });
     };

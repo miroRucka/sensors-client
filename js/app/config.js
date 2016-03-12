@@ -12,4 +12,8 @@ module.config(function ($translateProvider, blockUIConfig) {
 });
 module.constant("sensorsConstants", {
     refreshTime: 30000,
+    headers: {
+        'Accept-Type': 'application/json',
+        'Authorization': 'c3VzbGlrOmJ1Ym8=',
+    }
 });
