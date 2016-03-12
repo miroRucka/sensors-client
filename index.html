@@ -7,8 +7,8 @@
     <!-- Libraries -->
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="resources/vendor/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
 </head>
 <body>
 
@@ -24,11 +24,19 @@
 <script src="node_modules/rxjs/bundles/Rx.js"></script>
 <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
 <script src="node_modules/angular2/bundles/http.dev.js"></script>
+<script src="node_modules/chart.js/Chart.min.js"></script>
 <!-- Configure System.js, our module loader -->
 <script>
     System.config({
+        map: {
+            "ng2-charts": "node_modules/ng2-charts"
+        },
         packages: {
             app: {
+                format: 'register',
+                defaultExtension: 'js'
+            },
+            'ng2-charts': {
                 format: 'register',
                 defaultExtension: 'js'
             }
