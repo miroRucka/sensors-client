@@ -10,7 +10,6 @@ module.config(function ($translateProvider, blockUIConfig) {
     blockUIConfig.templateUrl = 'templates/loader.html';
 
 });
-module.constant("horskeInfoConstants", {
-    cameraRefreshTime: 500000,
-    systemInfoRefreshTime: 60000
+module.constant("sensorsConstants", {
+    refreshTime: 30000,
 });

@@ -18,3 +18,8 @@ angular.module('filters').filter('hPa', function (utils) {
         return utils.exists(input) && _.isNumber(input) ? input / 100 : input;
     };
 });
+angular.module('filters').filter('digits', function (utils) {
+    return function (input) {
+        return utils.exists(input) ? input.toFixed(2) : input;
+    };
+});

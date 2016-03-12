@@ -7,29 +7,29 @@
     <div class="left aligned column">
         <div class="ui segment">
             <div class="space"></div>
-            <div class="ui blue segment right aligned" *ngFor="#item of sensorData?.temperature; #i = index">
-                <i class="home icon left-placed"></i><span class="value">{{item?.value|digits}}</span> °C
+            <div class="ui blue segment right aligned" ng-repeat="item in sensorData.temperature">
+                <i class="home icon left-placed"></i><span class="value">{{item.value|digits}}</span> °C
             </div>
             <div class="ui secondary blue top attached label">Temperature</div>
         </div>
         <div class="ui blue label">
             <i class="sun icon"></i>
             Light
-            <div class="detail">{{sensorData?.light|digits}}</div>
+            <div class="detail">{{sensorData.light|digits}}</div>
             lx
         </div>
         <div class="ui blue label">
             <i class="refresh icon"></i>
-            <div class="detail">{{sensorData?.timestamp | unicodeToDate | date:'HH:mm:ss'}}</div>
+            <div class="detail">{{sensorData.timestamp | date:'HH:mm:ss'}}</div>
         </div>
     </div>
     <div class="left aligned column">
         <div class="ui segment">
-            <div class="humidity">{{sensorData?.humidity|digits}} %</div>
+            <div class="humidity">{{sensorData.humidity|digits}} %</div>
             <div class="ui secondary yellow top attached label">Humidity</div>
         </div>
         <div class="ui segment">
-            <div class="pressure humidity"> {{sensorData?.pressure|digits}} hPa</div>
+            <div class="pressure humidity"> {{sensorData.pressure|digits}} hPa</div>
             <div class="graph"></div>
             <div class="ui secondary yellow top attached label">Pressure</div>
         </div>

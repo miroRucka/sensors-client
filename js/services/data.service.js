@@ -2,13 +2,17 @@
  * this is module for rest api
  */
 angular.module('services').service('dataService', ['$http', function ($http) {
-    var _timeLapseFindMonth = function _timeLapseFindMonth(pointId) {
+    var _last = function _last() {
         return $http({
             method: 'GET',
-            url: '/api/time-lapse-month/?pointId=' + pointId
+            url: 'api/sensors/last',
+            headers: {
+                'Accept-Type': 'application/json',
+                'Authorization': 'c3VzbGlrOmJ1Ym8=',
+            }
         });
     };
     return {
-        timeLapseFindMonth: _timeLapseFindMonth
+        last: _last
     }
 }]);
