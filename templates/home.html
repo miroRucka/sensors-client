@@ -1,42 +1,45 @@
 <h2 class="ui center aligned icon header">
     <i class="circular sun icon"></i>
-    meteostanica
+    {{'app.title' | translate}}
 </h2>
 
 <div class="ui two column stackable grid container">
     <div class="left aligned column">
         <div class="ui segment">
             <div class="space"></div>
-            <div class="ui blue segment right aligned" ng-repeat="item in home.sensorData.temperature">
-                <i class="home icon left-placed"></i><span class="value">{{item.value|digits}}</span> °C
+            <div class="ui blue segment right aligned" ng-repeat="item in home.sensorData.temperature" ui-fade-toggle="!home.loading">
+                <i class="home icon left-placed"></i><span class="value">{{item.value|digits}}</span> {{'app.temperature.unit' | translate}}
             </div>
-            <div class="ui secondary blue top attached label">Temperature</div>
+            <div class="ui secondary blue top attached label">{{'app.temperature.title' | translate}}</div>
         </div>
         <div class="ui blue label">
             <i class="sun icon"></i>
-            Light
+            {{'app.light.title' | translate}}
             <div class="detail">{{home.sensorData.light|digits}}</div>
-            lx
+            {{'app.light.unit' | translate}}
         </div>
         <a class="ui blue label" ng-click="home.reload();">
             <i class="refresh icon"></i>
             <div class="detail">{{home.sensorData.timestamp | date:'HH:mm:ss'}}</div>
         </a>
+        <div class="ui segment no-padding">
+            <highchart config="home.chartTemperatureConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
+        </div>
     </div>
     <div class="left aligned column">
         <div class="ui segment no-padding">
-            <div class="humidity">{{home.sensorData.humidity|digits}} %</div>
+            <div class="humidity" ui-fade-toggle="!home.loading">{{home.sensorData.humidity|digits}} {{'app.humidity.unit' | translate}}<i class="chevron icon" ng-class="home.trendHumidity"></i></div>
             <div class="graph">
-                <highchart config="home.chartHumidityConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
+                <highchart config="home.chartHumidityConfig" class="chart img-responsive" data-highcharts-chart="2"></highchart>
             </div>
-            <div class="ui secondary yellow top attached label">Humidity</div>
+            <div class="ui secondary yellow top attached label">{{'app.humidity.title' | translate}}</div>
         </div>
         <div class="ui segment no-padding">
-            <div class="pressure humidity"> {{home.sensorData.pressure|digits}} hPa</div>
+            <div class="pressure humidity" ui-fade-toggle="!home.loading"> {{home.sensorData.pressure|digits}} {{'app.pressure.unit' | translate}}<i class="chevron icon" ng-class="home.trendPressure"></i></div>
             <div class="graph">
-                <highchart config="home.chartPressureConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
+                <highchart config="home.chartPressureConfig" class="chart img-responsive" data-highcharts-chart="3"></highchart>
             </div>
-            <div class="ui secondary yellow top attached label">Pressure</div>
+            <div class="ui secondary yellow top attached label">{{'app.pressure.title' | translate}}</div>
         </div>
     </div>
 </div>

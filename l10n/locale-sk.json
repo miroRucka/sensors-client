@@ -1,4 +1,12 @@
 {
   "app.name": "Meteostanica",
-  "app.title": "meteostanica"
+  "app.title": "meteostanica",
+  "app.temperature.title": "Teplota",
+  "app.temperature.unit": "°C",
+  "app.light.unit": "lx",
+  "app.light.title": "Svetlo",
+  "app.humidity.title": "Vlhkosť",
+  "app.humidity.unit": "%",
+  "app.pressure.unit": "hPa",
+  "app.pressure.title": "Tlak"
 }

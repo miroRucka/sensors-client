@@ -1,66 +1,69 @@
-angular.module('controllers').controller('HomeController', function ($scope, dataService, utils, $timeout, sensorsConstants, pressureChart,humidityChart, $filter) {
+angular.module('controllers').controller('HomeController', function (dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
 
-    var vm = this;
-    var timeoutPromise;
+        var vm = this;
+        var timeoutPromise;
 
-    /**charts**/
-    var getNotEmptyLength = function (chartData) {
-        return utils.exists(chartData) ? _.filter(chartData, function (item) {
-            return utils.exists(item.pressure)
-        }).length : 0;
-    };
-    var _defaultChart = function () {
-        return {
-            options: {
-                chart: {
-                    height: 150
-                }
-            },
-            title: 'sensors...',
-            loading: true
+        /**charts**/
+        var _defaultChart = function (height) {
+            return {
+                options: {
+                    chart: {
+                        height: height
+                    }
+                },
+                title: 'sensors...',
+                loading: true
+            };
         };
-    };
-    var _MAX_ITEM = 20;
-    vm.chartPressureConfig = _defaultChart();
-    vm.chartHumidityConfig = _defaultChart();
-    var ok = function (chartData) {
-        var chartDataLength = getNotEmptyLength(chartData);
-        var dataPressure = [];
-        var dataHumidity = [];
-        var cat = [];
-        var mod = chartDataLength > _MAX_ITEM ? (chartDataLength / _MAX_ITEM) : 0;
-        mod = Math.round(mod);
-        var sorted = _.sortBy(chartData, function (item) {
-            return item.timestamp;
-        });
-        _.each(sorted, function (item, index) {
-            var canPush = mod === 0 || (index % mod) == 0;
-            if (canPush && utils.exists(item.pressure) && item.pressure !== 0) {
+        vm.chartPressureConfig = _defaultChart(150);
+        vm.chartHumidityConfig = _defaultChart(150);
+        vm.chartTemperatureConfig = _defaultChart(194);
+        var ok = function (chartData) {
+            var dataPressure = [];
+            var dataHumidity = [];
+            var dataTemperature = {
+                series: [[], [], [], []]
+            };
+            var cat = [];
+            var sorted = _.sortBy(chartData, function (item) {
+                return item.timestamp;
+            });
+            _.each(sorted, function (item) {
                 dataPressure.push(item.pressure);
                 dataHumidity.push(item.humidity);
+                _.each(item.temperature, function (temp, index) {
+                    dataTemperature.series[index].push(temp.value);
+                });
+                dataTemperature.series[3].push(item.light);
                 cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
-            }
-        });
-        vm.chartPressureConfig = pressureChart(dataPressure, cat);
-        vm.chartHumidityConfig = humidityChart(dataHumidity, cat);
-    };
+            });
+            vm.chartPressureConfig = pressureChart(dataPressure, cat);
+            vm.chartHumidityConfig = humidityChart(dataHumidity, cat);
+            vm.chartTemperatureConfig = temperatureChart(dataTemperature, cat);
+            vm.trendHumidity = trend.computeTrend(dataHumidity);
+            vm.trendPressure = trend.computeTrend(dataPressure);
+        };
 
 
-    var _getSensorData = function () {
-        dataService.last().success(function (response) {
-            vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
-        });
-        timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
-    };
+        var _getSensorData = function () {
+            vm.loading = true;
+            dataService.last().success(function (response) {
+                vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
+                vm.loading = false;
+            });
+            timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
+        };
 
-    _getSensorData();
-    dataService.last12hours().success(ok);
-
-    vm.reload = function () {
-        if (utils.exists(timeoutPromise)) {
-            $timeout.cancel(timeoutPromise);
-        }
         _getSensorData();
         dataService.last12hours().success(ok);
+
+        vm.reload = function () {
+            if (utils.exists(timeoutPromise)) {
+                $timeout.cancel(timeoutPromise);
+            }
+            _getSensorData();
+            dataService.last12hours().success(ok);
+        }
     }
-});
+)
+;

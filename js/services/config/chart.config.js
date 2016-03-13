@@ -47,32 +47,61 @@ angular.module('services').factory('chartConfig', function (utils) {
     };
 });
 
-angular.module('services').factory('temperatureChart', function (chartConfig) {
+angular.module('services').factory('temperatureChart', function (chartConfig, $filter) {
     return function (data, cat) {
+        var series = function () {
+            var result = [];
+            var color = ["#2185D0", "#0D4269", "#92CAF3"]
+            _.each(data.series, function (temperature, index) {
+                result.push({
+                    color: color[index],
+                    type: "area",
+                    id: "series-" + index,
+                    name: "series-" + index,
+                    data: temperature,
+                    fillOpacity: 0,
+                    lineWidth: 1,
+                    marker: {
+                        radius: 2
+                    }
+                })
+            });
+            return result;
+        };
+
         return chartConfig({
             options: {
                 tooltip: {
                     formatter: function () {
-                        return 'Teplota <b>' + this.y +
-                            '</b><br/>v čase <b>' + this.x + '</b>';
+                        var result;
+                        if (this.series.name === "series-3") {
+                            result = 'Svetlo <b>' + this.y + 'lx</b><br/>v čase <b>' + this.x + '</b>';
+                        } else {
+                            result = 'Teplota <b>' + $filter('digits')(this.y) + '°C</b><br/>v čase <b>' + this.x + '</b>';
+                        }
+                        return result;
                     },
                     followTouchMove: false,
                     followPointer: false
+                },
+                chart: {
+                    height: 194
                 }
             },
-            series: [{
-                color: "#23b7e5",
-                type: "area",
-                id: "series-0",
-                data: data
-            }],
+            series: series(),
             yAxis: {
                 title: {
-                    text: 'Teplota °C'
+                    text: undefined
                 }
             },
             xAxis: {
-                categories: cat
+                categories: cat,
+                title: {
+                    text: undefined
+                },
+                labels: {
+                    enabled: false
+                }
             }
         });
     };
