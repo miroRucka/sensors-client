@@ -34,7 +34,7 @@ angular.module('controllers').controller('HomeController', function (dataService
                 _.each(item.temperature, function (temp, index) {
                     dataTemperature.series[index].push(temp.value);
                 });
-                dataTemperature.series[3].push(item.light);
+                //dataTemperature.series[3].push(item.light);
                 cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
             });
             vm.chartPressureConfig = pressureChart(dataPressure, cat);

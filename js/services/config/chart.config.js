@@ -73,13 +73,7 @@ angular.module('services').factory('temperatureChart', function (chartConfig, $f
             options: {
                 tooltip: {
                     formatter: function () {
-                        var result;
-                        if (this.series.name === "series-3") {
-                            result = 'Svetlo <b>' + this.y + 'lx</b><br/>v čase <b>' + this.x + '</b>';
-                        } else {
-                            result = 'Teplota <b>' + $filter('digits')(this.y) + '°C</b><br/>v čase <b>' + this.x + '</b>';
-                        }
-                        return result;
+                        return 'Teplota <b>' + $filter('digits')(this.y) + '°C</b><br/>v čase <b>' + this.x + '</b>';
                     },
                     followTouchMove: false,
                     followPointer: false
