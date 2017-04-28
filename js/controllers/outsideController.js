@@ -19,7 +19,6 @@ angular.module('controllers').controller('OutsideController', function (dataServ
                 $timeout.cancel(timeoutPromise);
             }
             _getSensorData();
-            dataService.last12hours().success(ok);
         }
     }
 );
