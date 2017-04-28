@@ -15,4 +15,9 @@ angular.module('sensors')
             templateUrl: 'templates/home.html',
             controller: 'HomeController as home'
         });
+        $stateProvider.state('outside', {
+            url: '/outside',
+            templateUrl: 'templates/outside.html',
+            controller: 'OutsideController as ctrl'
+        });
     });
