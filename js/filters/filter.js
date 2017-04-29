@@ -19,7 +19,8 @@ angular.module('filters').filter('hPa', function (utils) {
     };
 });
 angular.module('filters').filter('digits', function (utils) {
-    return function (input) {
-        return utils.exists(input) ? input.toFixed(2) : input;
+    return function (input, decimals) {
+        decimals = angular.isNumber(decimals) ? decimals : 2;
+        return utils.exists(input) ? input.toFixed(decimals) : input;
     };
 });

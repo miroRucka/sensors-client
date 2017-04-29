@@ -1,10 +1,10 @@
 <div class="ui inverted segment" ng-click="ctrl.reload();">
     <div class="ui inverted statistic large">
         <div class="value">
-            {{ctrl.sensorData.temperature[1].value|digits}}
+            {{ctrl.sensorData.temperature[1].value|digits:1}}
         </div>
         <div class="label">
-            temperature
+            {{ctrl.sensorData.timestamp | date:'dd.MM.yy HH:mm'}}
         </div>
     </div>
 </div>
