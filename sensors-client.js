@@ -4,6 +4,8 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
+//var backendUrl = "http://horske.info:8082/";
+var backendUrl = "http://localhost:8082/";
 
 var app = express();
 app.listen(8081)
@@ -19,11 +21,11 @@ process.on('uncaughtException', function (err) {
 app.use(express.static(__dirname));
 
 app.get("/api/*", function (req, res) {
-    apiProxy.web(req, res, {target: "http://horske.info:8082/"});
+    apiProxy.web(req, res, {target: backendUrl});
 });
 
 app.post("/api/*", function (req, res) {
-    apiProxy.web(req, res, {target: "http://horske.info:8082/"});
+    apiProxy.web(req, res, {target: backendUrl});
 });
 
 (function _beforeStart() {

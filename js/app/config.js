@@ -15,5 +15,10 @@ module.constant("sensorsConstants", {
     headers: {
         'Accept-Type': 'application/json',
         'Authorization': 'c3VzbGlrOmJ1Ym8=',
+    },
+    messaging: {
+        'url':'horske.info:61614',
+        'user':'YWRtaW4=',
+        'pass':'U3VzbGlrMTIz'
     }
 });

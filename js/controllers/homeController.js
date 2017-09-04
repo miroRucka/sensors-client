@@ -1,7 +1,13 @@
-angular.module('controllers').controller('HomeController', function (dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
+angular.module('controllers').controller('HomeController', function ($scope, dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend, sensorsConstants) {
 
         var vm = this;
         var timeoutPromise;
+        var stompClient = Stomp.client("ws://" + sensorsConstants.messaging.url + "/stomp", "v11.stomp");
+        stompClient.connect(atob(sensorsConstants.messaging.user), atob(sensorsConstants.messaging.pass), function () {
+            console.log('successful connect...');
+        });
+        stompClient.debug = function (str) {
+        };
 
         /**charts**/
         var _defaultChart = function (height) {
@@ -63,7 +69,18 @@ angular.module('controllers').controller('HomeController', function (dataService
             }
             _getSensorData();
             dataService.last12hours().success(ok);
-        }
+        };
+
+        vm.sendMessage = function () {
+            console.log('sending message ...');
+            stompClient.send("/queue/test", {}, "I thought I was in a transaction!");
+        };
+
+        $scope.$on('$destroy', function (event, data) {
+            stompClient.disconnect(function () {
+                console.log('disconnecting from stomp server ...');
+            });
+        });
+
     }
-)
-;
+);

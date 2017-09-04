@@ -22,6 +22,9 @@
             <i class="refresh icon"></i>
             <div class="detail">{{home.sensorData.timestamp | date:'HH:mm:ss'}}</div>
         </a>
+        <!--<a class="ui blue label" ng-click="home.sendMessage();">
+            send message
+        </a>-->
         <div class="ui segment no-padding">
             <highchart config="home.chartTemperatureConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
         </div>
