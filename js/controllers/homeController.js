@@ -1,13 +1,30 @@
-angular.module('controllers').controller('HomeController', function ($scope, dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend, sensorsConstants) {
+angular.module('controllers').controller('HomeController', function ($scope, dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
+        var photoUploadedDestination = '/topic/photo-uploaded';
 
         var vm = this;
         var timeoutPromise;
         var stompClient = Stomp.client("ws://" + sensorsConstants.messaging.url + "/stomp", "v11.stomp");
         stompClient.connect(atob(sensorsConstants.messaging.user), atob(sensorsConstants.messaging.pass), function () {
             console.log('successful connect...');
+            stompClient.subscribe(photoUploadedDestination, function (data) {
+                $scope.$apply(function () {
+                    console.log('photo uploaded', data);
+                    vm.lastPhoto = '/api/sensors/photo/' + JSON.parse(data.body)._id
+                })
+            });
         });
         stompClient.debug = function (str) {
         };
+
+        var _getDefaultPointId = function () {
+            return sensorsConstants.points[0].id;
+        };
+
+        (function _getLastPhotoData() {
+            dataService.lastPhotoInfo(_getDefaultPointId()).success(function (response) {
+                vm.lastPhoto = '/api/sensors/photo/' + response._id;
+            });
+        })();
 
         /**charts**/
         var _defaultChart = function (height) {
@@ -53,34 +70,35 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
 
         var _getSensorData = function () {
             vm.loading = true;
-            dataService.last().success(function (response) {
+            dataService.last(_getDefaultPointId()).success(function (response) {
                 vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
                 vm.loading = false;
+                console.log(">after last")
             });
             timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
         };
 
         _getSensorData();
-        dataService.last12hours().success(ok);
+        dataService.last12hours(_getDefaultPointId()).success(ok);
 
         vm.reload = function () {
             if (utils.exists(timeoutPromise)) {
                 $timeout.cancel(timeoutPromise);
             }
             _getSensorData();
-            dataService.last12hours().success(ok);
+            dataService.last12hours(_getDefaultPointId()).success(ok);
         };
 
         vm.sendMessage = function () {
             console.log('sending message ...');
-            stompClient.send("/queue/test", {}, "I thought I was in a transaction!");
+            stompClient.send("/topic/take-photo", {}, '{"pointId": "location_oo0"}');
         };
 
         $scope.$on('$destroy', function (event, data) {
+            stompClient.unsubscribe(photoUploadedDestination);
             stompClient.disconnect(function () {
                 console.log('disconnecting from stomp server ...');
             });
         });
-
     }
 );

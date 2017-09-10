@@ -17,8 +17,9 @@ module.constant("sensorsConstants", {
         'Authorization': 'c3VzbGlrOmJ1Ym8=',
     },
     messaging: {
-        'url':'horske.info:61614',
-        'user':'YWRtaW4=',
-        'pass':'U3VzbGlrMTIz'
-    }
+        'url': 'horske.info:61614',
+        'user': 'YWRtaW4=',
+        'pass': 'U3VzbGlrMTIz'
+    },
+    points: [{id: "location_001", localized: "Dom"}, {id: "location_001", localized: "Záhrada"}]
 });

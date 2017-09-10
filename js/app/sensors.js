@@ -22,6 +22,13 @@ var _dependencies = function () {
     return result;
 };
 angular.module('sensors', _dependencies());
-
-
-
+angular.module('sensors').value("pointsIds", {});
+angular.module('sensors').run(function ($http, sensorsConstants) {
+    $http({
+        method: 'GET',
+        url: 'api/sensors/all-points',
+        headers: sensorsConstants.headers
+    }).then(function (result) {
+        sensorsConstants.points = result.data;
+    });
+});

@@ -53,9 +53,13 @@ body > .grid {
 .graph {
 }
 
-.sensors .ui.segment.no-padding{
+.sensors .ui.segment.no-padding {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.photo-margin {
+    margin: 10px 0 20px 0;
 }
 
 

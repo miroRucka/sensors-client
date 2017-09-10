@@ -20,11 +20,10 @@
         </div>
         <a class="ui blue label" ng-click="home.reload();">
             <i class="refresh icon"></i>
+
             <div class="detail">{{home.sensorData.timestamp | date:'HH:mm:ss'}}</div>
         </a>
-        <!--<a class="ui blue label" ng-click="home.sendMessage();">
-            send message
-        </a>-->
+
         <div class="ui segment no-padding">
             <highchart config="home.chartTemperatureConfig" class="chart img-responsive" data-highcharts-chart="1"></highchart>
         </div>
@@ -45,5 +44,7 @@
             <div class="ui secondary yellow top attached label">{{'app.pressure.title' | translate}}</div>
         </div>
     </div>
-</div>
+    <div class="ui">
+        <img ng-click="home.sendMessage();" class="ui fluid centered image photo-margin" ng-src="{{home.lastPhoto}}" width="500" height="500"/>
+    </div>
 </div>
