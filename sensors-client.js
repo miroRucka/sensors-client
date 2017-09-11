@@ -28,6 +28,10 @@ app.post("/api/*", function (req, res) {
     apiProxy.web(req, res, {target: backendUrl});
 });
 
+app.put("/api/*", function (req, res) {
+    apiProxy.web(req, res, {target: backendUrl});
+});
+
 (function _beforeStart() {
     console.info("performing - after start handler");
 })();
