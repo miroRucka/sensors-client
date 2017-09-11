@@ -17,7 +17,7 @@ module.constant("sensorsConstants", {
         'Authorization': 'c3VzbGlrOmJ1Ym8=',
     },
     messaging: {
-        'url': 'localhost:61614',
+        'url': '127.0.0.1:61614',
         'user': 'YWRtaW4=',
         'pass': 'U3VzbGlrMTIz'
     },
