@@ -9,7 +9,7 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
             stompClient.subscribe(photoUploadedDestination, function (data) {
                 $scope.$apply(function () {
                     console.log('photo uploaded', data);
-                    vm.lastPhoto = '/api/sensors/photo/' + JSON.parse(data.body)._id
+                    vm.lastPhoto = '/sensors/photo/' + JSON.parse(data.body)._id
                 })
             });
         });
@@ -22,7 +22,7 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
 
         (function _getLastPhotoData() {
             dataService.lastPhotoInfo(_getDefaultPointId()).success(function (response) {
-                vm.lastPhoto = '/api/sensors/photo/' + response._id;
+                vm.lastPhoto = '/sensors/photo/' + response._id;
             });
         })();
 
