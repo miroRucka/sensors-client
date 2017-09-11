@@ -17,7 +17,7 @@ module.constant("sensorsConstants", {
         'Authorization': 'c3VzbGlrOmJ1Ym8=',
     },
     messaging: {
-        'url': 'horske.info:61614',
+        'url': 'localhost:61614',
         'user': 'YWRtaW4=',
         'pass': 'U3VzbGlrMTIz'
     },
