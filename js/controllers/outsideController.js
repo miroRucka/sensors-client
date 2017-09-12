@@ -1,11 +1,11 @@
-angular.module('controllers').controller('OutsideController', function (dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
+angular.module('controllers').controller('OutsideController', function (dataService, utils, $timeout, sensorsConstants) {
 
         var vm = this;
         var timeoutPromise;
 
         var _getSensorData = function () {
             vm.loading = true;
-            dataService.last().success(function (response) {
+            dataService.last(sensorsConstants.points[0].id).success(function (response) {
                 vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
                 vm.loading = false;
             });
