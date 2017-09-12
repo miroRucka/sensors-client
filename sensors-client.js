@@ -20,11 +20,15 @@ process.on('uncaughtException', function (err) {
 
 app.use(express.static(__dirname));
 
-app.get("/api/*", function (req, res) {
+app.get("/*", function (req, res) {
     apiProxy.web(req, res, {target: backendUrl});
 });
 
 app.post("/api/*", function (req, res) {
+    apiProxy.web(req, res, {target: backendUrl});
+});
+
+app.put("/api/*", function (req, res) {
     apiProxy.web(req, res, {target: backendUrl});
 });
 
