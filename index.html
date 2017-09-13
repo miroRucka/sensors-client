@@ -14,7 +14,19 @@
     <!-- endbuild -->
 </head>
 <body>
+<div class="ui fixed inverted menu" ng-controller="MenuController as menu">
+    <div class="ui container">
+        <a href="#/home" class="header item">
+            <i class="circular sun icon"></i>
+            meteostanica
+        </a>
+        <a href="#/outside" class="item">Outside</a>
+        <a href="#/home/{{item.id}}" class="item" ng-repeat="item in menu.points">{{item.localized}}</a>
+    </div>
+</div>
+
 <div class="ui main text container sensors" ui-view></div>
+
 <!-- build:js js/scripts.package.js -->
 <script defer="defer" src="bower_components/jquery/dist/jquery.js"></script>
 <script defer="defer" src="bower_components/angular/angular.js"></script>
@@ -34,6 +46,7 @@
 <script defer="defer" src="js/filters/filter.js"></script>
 <script defer="defer" src="js/controllers/homeController.js"></script>
 <script defer="defer" src="js/controllers/outsideController.js"></script>
+<script defer="defer" src="js/controllers/menuController.js"></script>
 <script defer="defer" src="js/directives/uiFadeToggle.js"></script>
 <script defer="defer" src="js/services/data.service.js"></script>
 <script defer="defer" src="js/services/points.service.js"></script>

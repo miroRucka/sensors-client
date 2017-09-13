@@ -21,5 +21,5 @@ module.constant("sensorsConstants", {
         'user': 'YWRtaW4=',
         'pass': 'U3VzbGlrMTIz'
     },
-    points: [{id: "location_001", localized: "Dom"}, {id: "location_001", localized: "Záhrada"}]
+    points: [{id: "location_001", localized: "Dom"}, {id: "location_002", localized: "Záhrada"}]
 });

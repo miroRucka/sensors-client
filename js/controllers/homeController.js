@@ -1,4 +1,4 @@
-angular.module('controllers').controller('HomeController', function ($scope, dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
+angular.module('controllers').controller('HomeController', function ($scope, $stateParams, dataService, utils, $timeout, sensorsConstants, pressureChart, humidityChart, temperatureChart, $filter, trend) {
         var photoUploadedDestination = '/topic/photo-uploaded';
 
         var vm = this;
@@ -17,7 +17,10 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
         };
 
         var _getDefaultPointId = function () {
-            return sensorsConstants.points[0].id;
+            if (!utils.exists($stateParams.pointId)) {
+                return sensorsConstants.points[0].id;
+            }
+            return $stateParams.pointId;
         };
 
         (function _getLastPhotoData() {
@@ -73,7 +76,6 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
             dataService.last(_getDefaultPointId()).success(function (response) {
                 vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
                 vm.loading = false;
-                console.log(">after last")
             });
             timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
         };
@@ -90,11 +92,13 @@ angular.module('controllers').controller('HomeController', function ($scope, dat
         };
 
         vm.sendMessage = function () {
-            console.log('sending message ...');
             stompClient.send("/topic/take-photo", {}, '{"pointId": "location_oo0"}');
         };
 
-        $scope.$on('$destroy', function (event, data) {
+        $scope.$on('$destroy', function () {
+            if (timeoutPromise) {
+                $timeout.cancel(timeoutPromise);
+            }
             stompClient.unsubscribe(photoUploadedDestination);
             stompClient.disconnect(function () {
                 console.log('disconnecting from stomp server ...');

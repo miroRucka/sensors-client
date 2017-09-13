@@ -1,6 +1,6 @@
 body {
     background-color: #DADADA;
-    padding: 50px;
+    padding-top: 70px;
 }
 
 body > .grid {
@@ -60,6 +60,9 @@ body > .grid {
 
 .photo-margin {
     margin: 10px 0 20px 0;
+}
+
+.ui.text.container {
 }
 
 
