@@ -60,13 +60,15 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
                 return item.timestamp;
             });
             _.each(sorted, function (item) {
-                dataPressure.push(item.pressure);
-                dataHumidity.push(item.humidity);
-                _.each(item.temperature, function (temp, index) {
-                    dataTemperature.series[index].push(temp.value);
-                });
-                //dataTemperature.series[3].push(item.light);
-                cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
+                if (item.humidity < 100) {
+                    dataPressure.push(item.pressure);
+                    dataHumidity.push(item.humidity);
+                    _.each(item.temperature, function (temp, index) {
+                        dataTemperature.series[index].push(temp.value);
+                    });
+                    //dataTemperature.series[3].push(item.light);
+                    cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
+                }
             });
             vm.chartPressureConfig = pressureChart(dataPressure, cat);
             vm.chartHumidityConfig = humidityChart(dataHumidity, cat);
