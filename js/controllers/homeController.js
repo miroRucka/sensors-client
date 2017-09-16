@@ -7,9 +7,14 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         stompClient.connect(atob(sensorsConstants.messaging.user), atob(sensorsConstants.messaging.pass), function () {
             console.log('successful connect...');
             stompClient.subscribe(photoUploadedDestination, function (data) {
+                var message = JSON.parse(data.body);
+                if (data.body && message.locationId !== _getDefaultPointId()) {
+                    console.log('not for me!');
+                    return;
+                }
                 $scope.$apply(function () {
                     console.log('photo uploaded', data);
-                    vm.lastPhoto = '/sensors/photo/' + JSON.parse(data.body)._id
+                    vm.lastPhoto = '/sensors/photo/' + message._id
                 })
             });
         });
@@ -92,7 +97,11 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         };
 
         vm.sendMessage = function () {
-            stompClient.send("/topic/take-photo", {}, '{"pointId": "location_oo0"}');
+            var message = JSON.stringify({
+                pointId: _getDefaultPointId()
+            });
+            console.log("message is: ", message);
+            stompClient.send("/topic/take-photo", {}, message);
         };
 
         $scope.$on('$destroy', function () {
