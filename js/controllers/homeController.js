@@ -84,7 +84,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
                 vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
                 vm.loading = false;
             });
-            timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
+            //timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
         };
 
         _getSensorData();

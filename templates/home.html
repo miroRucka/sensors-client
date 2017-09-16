@@ -2,8 +2,8 @@
     <div class="left aligned column">
         <div class="ui segment">
             <div class="space"></div>
-            <div class="ui blue segment right aligned" ng-repeat="item in home.sensorData.temperature" ui-fade-toggle="!home.loading">
-                <i class="home icon left-placed"></i><span class="value">{{item.value|digits}}</span> {{'app.temperature.unit' | translate}}
+            <div class="ui blue segment right aligned" ng-repeat="item in home.sensorData.temperature" ui-fade-toggle="!home.loading" ng-if="item.key != 't1'">
+                <a class="ui tag label left-placed" ng-class="item.key"><span ng-if="item.key!='t2'">IN</span><span ng-if="item.key=='t2'">OUT</span></a><span class="value">{{item.value|digits}}</span> {{'app.temperature.unit' | translate}}
             </div>
             <div class="ui secondary blue top attached label">{{'app.temperature.title' | translate}}<span ng-if="home.sensorData.light"> | Svetlo: {{home.sensorData.light|digits}}</span> @ <a ng-click="home.reload();">{{home.sensorData.timestamp | date:'dd.MM.yy HH:mm'}}</a></div>
         </div>
