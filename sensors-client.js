@@ -4,8 +4,8 @@
 var express = require('express');
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
-var backendUrl = "http://horske.info/";
-//var backendUrl = "http://localhost:8082/";
+//var backendUrl = "http://horske.info/";
+var backendUrl = "http://localhost:8082/";
 
 var app = express();
 app.listen(8081)
