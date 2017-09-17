@@ -15,6 +15,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
                 $scope.$apply(function () {
                     console.log('photo uploaded', data);
                     vm.lastPhoto = '/sensors/photo/' + message._id
+                    vm.lastPhotoTimestamp = message.timestamp;
                 })
             });
         });
@@ -31,6 +32,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         (function _getLastPhotoData() {
             dataService.lastPhotoInfo(_getDefaultPointId()).success(function (response) {
                 vm.lastPhoto = '/sensors/photo/' + response._id;
+                vm.lastPhotoTimestamp = response.timestamp;
             });
         })();
 

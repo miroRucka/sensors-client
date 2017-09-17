@@ -27,7 +27,10 @@
             <div class="ui secondary yellow top attached label">{{'app.pressure.title' | translate}}</div>
         </div>
     </div>
-    <div class="ui">
-        <img ng-click="home.sendMessage();" class="ui fluid centered image photo-margin" ng-src="{{home.lastPhoto}}" width="500" height="500"/>
+    <div class="ui" ng-if="home.lastPhotoTimestamp">
+        <div class="ui label photo-info">
+            <i class="wait icon"></i> posledná fotka @ {{home.lastPhotoTimestamp | date:'dd.MM.yy HH:mm:ss'}}
+        </div>
+        <img ng-click="home.sendMessage();" class="ui fluid centered image photo-margin rounded photo" ng-src="{{home.lastPhoto}}" width="500" height="500"/>
     </div>
 </div>
