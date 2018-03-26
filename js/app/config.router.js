@@ -25,4 +25,9 @@ angular.module('sensors')
             templateUrl: 'templates/outside.html',
             controller: 'OutsideController as ctrl'
         });
+        $stateProvider.state('nt', {
+            url: '/nt',
+            templateUrl: 'templates/nt.html',
+            controller: 'NTController as ctrl'
+        });
     });

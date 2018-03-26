@@ -37,11 +37,20 @@ angular.module('services').service('dataService', function ($http, sensorsConsta
             headers: sensorsConstants.headers
         });
     };
+    var _nt = function () {
+        return $http({
+            method: 'GET',
+            url: '/api/nt',
+            headers: sensorsConstants.headers,
+            timeout: 3000
+        });
+    };
     return {
         last: _last,
         last12hours: _12hours,
         today: _today,
         readPhoto: _readPhoto,
-        lastPhotoInfo: _lastPhotoInfo
+        lastPhotoInfo: _lastPhotoInfo,
+        nt: _nt
     }
 });
