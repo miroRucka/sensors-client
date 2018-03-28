@@ -7,9 +7,15 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         stompClient.connect(atob(sensorsConstants.messaging.user), atob(sensorsConstants.messaging.pass), function () {
             console.log('successful connect...');
             stompClient.subscribe(photoUploadedDestination, function (data) {
+                var message = JSON.parse(data.body);
+                if (data.body && message.locationId !== _getDefaultPointId()) {
+                    console.log('not for me!');
+                    return;
+                }
                 $scope.$apply(function () {
                     console.log('photo uploaded', data);
-                    vm.lastPhoto = '/sensors/photo/' + JSON.parse(data.body)._id
+                    vm.lastPhoto = '/sensors/photo/' + message._id
+                    vm.lastPhotoTimestamp = message.timestamp;
                 })
             });
         });
@@ -26,6 +32,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         (function _getLastPhotoData() {
             dataService.lastPhotoInfo(_getDefaultPointId()).success(function (response) {
                 vm.lastPhoto = '/sensors/photo/' + response._id;
+                vm.lastPhotoTimestamp = response.timestamp;
             });
         })();
 
@@ -55,13 +62,15 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
                 return item.timestamp;
             });
             _.each(sorted, function (item) {
-                dataPressure.push(item.pressure);
-                dataHumidity.push(item.humidity);
-                _.each(item.temperature, function (temp, index) {
-                    dataTemperature.series[index].push(temp.value);
-                });
-                //dataTemperature.series[3].push(item.light);
-                cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
+                if (item.humidity < 100) {
+                    dataPressure.push(item.pressure);
+                    dataHumidity.push(item.humidity);
+                    _.each(item.temperature, function (temp, index) {
+                        dataTemperature.series[index].push(temp.value);
+                    });
+                    //dataTemperature.series[3].push(item.light);
+                    cat.push($filter('date')(new Date(item.timestamp), 'HH:mm'));
+                }
             });
             vm.chartPressureConfig = pressureChart(dataPressure, cat);
             vm.chartHumidityConfig = humidityChart(dataHumidity, cat);
@@ -77,7 +86,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
                 vm.sensorData = utils.exists(response) && _.isArray(response) ? _.first(response) : response;
                 vm.loading = false;
             });
-            timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
+            //timeoutPromise = $timeout(_getSensorData, sensorsConstants.refreshTime);
         };
 
         _getSensorData();
@@ -92,7 +101,11 @@ angular.module('controllers').controller('HomeController', function ($scope, $st
         };
 
         vm.sendMessage = function () {
-            stompClient.send("/topic/take-photo", {}, '{"pointId": "location_oo0"}');
+            var message = JSON.stringify({
+                pointId: _getDefaultPointId()
+            });
+            console.log("message is: ", message);
+            stompClient.send("/topic/take-photo", {}, message);
         };
 
         $scope.$on('$destroy', function () {
