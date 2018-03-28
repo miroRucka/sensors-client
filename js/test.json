@@ -1,0 +1,19 @@
+{
+  "sections": [
+    {
+      "label": "section label",
+      "description": "description about section",
+      "files": [
+        {
+          "uri": "/navod-1.pdf",
+          "roles": [
+            "13",
+            "11"
+          ],
+          "description": "description about file navod-1",
+          "label": "label navod 1"
+        }
+      ]
+    }
+  ]
+}

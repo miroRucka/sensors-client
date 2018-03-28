@@ -24,7 +24,7 @@ app.get("/*", function (req, res) {
     apiProxy.web(req, res, {target: backendUrl});
 });
 
-app.post("/api/*", function (req, res) {
+app.post("/*", function (req, res) {
     apiProxy.web(req, res, {target: backendUrl});
 });
 
